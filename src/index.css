@@ -1,13 +1,251 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Mulish&family=Nunito&family=Nunito+Sans:wght@400;600&family=Poppins:ital,wght@0,400;0,500;1,300;1,400&family=Questrial&family=Raleway&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Testing on phone offline */
+@font-face {
+  font-family: myFont;
+  src: url("../public/Questrial-Regular.ttf") format("truetype");
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  @apply scroll-smooth;
+}
+
+*::-webkit-scrollbar {
+  @apply w-[5px] h-[5px];
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply rounded bg-slate-400;
+}
+
+*::-webkit-scrollbar-track {
+  @apply !bg-transparent;
+}
+
+body {
+  @apply font-questrial bg-main-bg text-slate-700 dark:bg-main-dark dark:text-slate-300;
+  font-family: myFont;
+}
+
+/* General styles */
+p,
+a,
+svg {
+  @apply text-muted;
+}
+
+a.btn {
+  @apply opacity-100;
+}
+
+.card {
+  @apply bg-white dark:bg-card-dark rounded-lg border dark:border-dark p-4;
+}
+
+.card-bordered {
+  @apply border dark:border-dark;
+}
+
+.btn {
+  @apply px-4 py-[0.35rem] rounded-lg transition-a sm:cursor-pointer capitalize flex-shrink-0;
+}
+
+.btn-primary {
+  @apply bg-primary text-white hover:bg-[#7080fa];
+}
+
+.btn-secondar {
+  @apply bg-secondaryGreen text-white hover:bg-[#129d83];
+}
+
+.icon-box {
+  @apply w-9 h-9 rounded-full grid place-items-center text-muted hover:bg-slate-200  dark:hover:bg-hover-color-dark transition-a sm:cursor-pointer flex-shrink-0;
+}
+
+/* Back to top button */
+.back-to-top-btn {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.back-to-top-btn.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+a.active {
+  @apply bg-primary text-white rounded-lg;
+}
+
+/* Modals*/
+.modal {
+  @apply fixed w-full h-full bg-black/50 top-0  left-0 opacity-0 pointer-events-none  z-20 lg:static lg:opacity-100 lg:pointer-events-auto lg:bg-transparent transition-opacity duration-300;
+}
+
+.dialog {
+  @apply absolute left-0 px-2 top-0 max-w-[250px] lg:overflow-hidden overflow-auto lg:hover:overflow-auto w-full h-full bg-white dark:bg-card-dark -translate-x-[500px]  lg:fixed lg:translate-x-0 lg:border-r dark:border-dark transition-transform duration-300;
+}
+
+.modal.open,
+.dialog.open {
+  @apply translate-x-0 pointer-events-auto opacity-100;
+}
+
+.input-with-icon {
+  @apply relative w-full;
+}
+
+.input-with-icon input,
+.input-with-icon select {
+  @apply border border-slate-300 dark:border-dark rounded-md px-4 pl-8 py-[0.35rem] outline-none w-full bg-inherit dark:bg-hover-color-dark focus:!border-primary;
+}
+
+.input-with-icon svg:not(.icon-send) {
+  @apply absolute top-1/2 -translate-y-1/2 left-2;
+}
+
+/* For Navbar */
+@media (max-width: 1024px) {
+  .navbar {
+    width: 100vw !important;
+  }
+}
+
+/* Loader */
+.loader {
+  @apply w-20 h-20 border-4 border-primary rounded-full;
+  border-block-start-color: transparent;
+  animation: rotate 1s ease-in-out infinite;
+}
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* React Tabs */
+.react-tabs__tab-list {
+  @apply !border-slate-300 dark:!border-hover-color-dark;
+}
+
+.react-tabs__tab--selected {
+  @apply !bg-main-bg dark:!bg-main-dark !text-primary !border-primary;
+}
+
+.react-tabs__tab:focus:after {
+  @apply !hidden;
+}
+
+/* Check box & radio box */
+.input-check label,
+.input-radio label {
+  @apply relative cursor-pointer flex items-center select-none;
+}
+
+.input-check input[type="checkbox"],
+.input-radio input[type="radio"] {
+  @apply cursor-pointer opacity-0 absolute;
+}
+
+.input-check label::before {
+  content: "";
+  @apply w-4 h-4 mr-2 rounded border border-primary;
+}
+
+.input-check input[type="checkbox"]:checked + label::before {
+  content: "✔";
+  @apply grid place-items-center text-slate-100 text-[0.7rem] bg-primary;
+}
+
+.input-radio label::before {
+  content: "";
+  @apply w-4 h-4 mr-2 rounded-full border border-primary flex-shrink-0;
+}
+.input-radio label::after {
+  content: "";
+  @apply absolute w-2 h-2 top-1/2 left-0 -translate-y-1/2 scale-0 ml-[0.25rem] bg-primary transition-a rounded-full;
+}
+
+.input-radio input[type="radio"]:checked + label::after {
+  @apply -translate-y-1/2 scale-100;
+}
+
+/* Table */
+table th,
+table td {
+  @apply border-b border-b-[#d6dcee] dark:border-b-dark-light;
+}
+
+.Completed:not(.dot) {
+  @apply bg-secondaryGreen/20 text-secondaryGreen;
+}
+.Pending:not(.dot) {
+  @apply bg-yellow-500/20 text-yellow-500;
+}
+.Cancelled:not(.dot) {
+  @apply bg-secondaryOrange/20 text-secondaryOrange;
+}
+
+.Completed.dot {
+  @apply bg-secondaryGreen;
+}
+.Pending.dot {
+  @apply bg-yellow-500;
+}
+.Cancelled.dot {
+  @apply bg-secondaryOrange;
+}
+
+.heading {
+  @apply relative before:absolute before:w-3 before:h-3 before:rounded-full before:bg-slate-300 dark:before:bg-[#5b5f72] before:-left-4 before:top-1/2 before:-translate-y-1/2;
+}
+
+.btn.compare {
+  animation: bounce 1s ease-in-out alternate-reverse infinite;
+}
+
+@keyframes bounce {
+  100% {
+    transform: scale(0.8);
+  }
+}
+
+.finger {
+  animation: point 0.6s ease-in-out alternate-reverse infinite;
+}
+
+@keyframes point {
+  0% {
+    transform: translateY(-1rem);
+  }
+}
+
+.MuiStepLabel-label,
+.MuiStepLabel-label.Mui-completed {
+  @apply text-slate-400 dark:text-slate-300;
+}
+
+.MuiSvgIcon-root {
+  @apply !text-slate-400;
+}
+
+.MuiSvgIcon-root.Mui-active,
+.MuiSvgIcon-root.Mui-completed {
+  @apply !text-primary;
+}
+
+.MuiStepLabel-label.Mui-active {
+  @apply !text-primary;
+}
+
+.MuiStepConnector-line {
+  @apply !border-2 rounded-full !border-slate-300 dark:!border-slate-600;
+}
+.MuiStepConnector-root.Mui-completed .MuiStepConnector-line {
+  @apply !border-primary;
 }
