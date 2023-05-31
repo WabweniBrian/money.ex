@@ -20,7 +20,7 @@ import {
 } from "./pages";
 function App() {
   const [showButton, setShowButton] = useState(false);
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
   const dispatch = useDispatch();
   const route = useLocation();
 
